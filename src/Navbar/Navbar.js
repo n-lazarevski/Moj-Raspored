@@ -1,49 +1,25 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import "./NavbarStyles.css";
 
+function Navbar(){
+    const faculties2 = ["ФИНКИ", "ФЕИТ", "Машински", "Медицина", "Економски", "Филолошки"]
 
-
-
-class Navbar extends React.Component {
-    constructor(props) {
-        super(props)
+    let navigate = useNavigate(); 
+    const routeChange = () =>{ 
+        let path = `/login`; 
+        navigate(path);
     }
 
-    
-    render() {
-        const faculties = [{
-            name: "ФИНКИ"
-            },
-            {
-            name: "ФЕИТ"
-            },
-            {
-            name: "Машински"
-            },
-            {
-            name: "Медицина"
-            },
-            {
-            name: "Економски"
-            },
-            {
-            name: "Филолошки"
-            },
-        ]
-
-        const faculties2 = ["ФИНКИ", "ФЕИТ", "Машински", "Медицина", "Економски", "Филолошки"]
-
-
-
-        return (
-            <div>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand mb-0 h1" href="#">Мој Распоред</a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    return (
+        <div>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div className="container-fluid">
+                <a className="navbar-brand mb-0 h1" href="#">Мој Распоред</a>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNavDarkDropdown">
                     <ul className="navbar-nav">
                         <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,17 +34,19 @@ class Navbar extends React.Component {
                             <li><a className="dropdown-item" href="#">ФЕИТ</a></li> */}
                         </ul>
                         </li>
+                        <li className='nav-item'>
+                            <Link className='nav-link' to='/about'>About</Link>
+                        </li>
                     </ul>
-                    </div>
                 </div>
-                <div className='d-flex '>
-                    <span style={{color: 'white'}}>Најавен како: Админ</span>
-                    <button className='btn'>Одјави се</button>
-                </div>
-            </nav>            
             </div>
-        )
-    }
+            <div className='d-flex'>
+                <span style={{color: 'white'}}>Најавен како: Админ</span>
+                <button onClick={routeChange} className='btn btn-sm'>Одјави се</button>
+            </div>
+        </nav>            
+        </div>
+    )
 }
 
 export default Navbar;
