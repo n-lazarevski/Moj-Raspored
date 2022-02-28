@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { Routes, Route, Link } from "react-router-dom";
+import React, {Component, useState} from 'react';
+import { Routes, Route, Link, Redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import './App.css';
 import Calendar from "./calendar/Calendar";
@@ -10,50 +10,39 @@ class App extends Component {
     return (
         <>
           <Routes>
-            <Route path="/" element={<Calendar />} />
-            <Route path="about" element={<About />} />
-            <Route path="login" element={<Login />} />
+            <Route path="/" element={<Login />} />
+            <Route path="schedule" render={(props) => <Calendar {...props}/>} element={<Calendar />} />
           </Routes>
         </>
     );
   }
 }
 
-function About() {
-  return (
-    <>
-      <nav>
-        <Link to="/">Home</Link>
-      </nav>
-      <main>
-        <h2>Who are we?</h2>
-        <p>
-          That feels like an existential question, don't you
-          think?
-        </p>
-      </main>      
-    </>
-  );
-}
-
 function Login() {
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
-    let path = `/`; 
-    navigate(path);
+    let path = `/schedule`; 
+    navigate(path, { state: { email: email } });
   }
+
+  function handleSubmit() {
+    if(email != '')
+      routeChange()
+    return;
+  }
+
+  const [email, setEmail] = useState('')
 
   return (    
     <div id='bd' className="text-center">    
       <main className="form-signin">
         <form>
           <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-
           <div className="form-floating">
-            <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"/>
+            <input type="email" onChange={event => setEmail(event.target.value)} className="form-control" id="floatingInput" placeholder="Username" required/>
           </div>
           <div className="form-floating">
-            <input type="password" className="form-control" id="floatingPassword" placeholder="Password"/>
+            <input type="password" className="form-control" id="floatingPassword" placeholder="Password" required/>
           </div>
 
           <div className="checkbox mb-3">
@@ -61,7 +50,7 @@ function Login() {
               <input type="checkbox" value="remember-me"/> Remember me
             </label>
           </div>
-          <button onClick={routeChange} className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+          <button onClick={handleSubmit} className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
           <p className="mt-5 mb-3 text-muted">©Titanic III</p>
         </form>
       </main> 

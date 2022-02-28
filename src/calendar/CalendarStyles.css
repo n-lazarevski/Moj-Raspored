@@ -12,9 +12,22 @@
 }
 
 .fa:hover {
-    transform: scale(1.2);
+    transform: scale(1.4);
+}
+
+.subject{
+    font-size: 14px;
 }
 
 .subject-info {
-    font-size: smaller;
+    font-size: 12px;
+}
+
+.konsultacii {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.custom-card {
+    margin: 10px;
 }
